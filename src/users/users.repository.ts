@@ -61,6 +61,7 @@ export class UsersRepository {
 
     try {
       const request = await this.client.send(command);
+
       if (request.Count > 0) {
         return User.newInstanceFromDynamoDBObject(request.Items[0]);
       }
@@ -85,6 +86,9 @@ export class UsersRepository {
       },
       createdAt: {
         N: String(data.createdAt.getTime()),
+      },
+      status: {
+        BOOL: data.status,
       },
     };
     if (data.updatedAt) {

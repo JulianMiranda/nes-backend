@@ -63,9 +63,11 @@ export class ProductsRepository {
       price: {
         N: data.price.toString(),
       },
-
       createdAt: {
         N: String(data.createdAt.getTime()),
+      },
+      status: {
+        BOOL: data.status,
       },
     };
     if (data.updatedAt) {

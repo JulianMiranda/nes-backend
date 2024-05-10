@@ -5,6 +5,7 @@ export class User {
   id: string;
   name: string;
   email: string;
+  status: boolean;
   password: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -19,12 +20,16 @@ export class User {
     if (data.updatedAt) {
       result.updatedAt = new Date(Number(data.updatedAt.N));
     }
+    if (data.status) {
+      result.status = data?.status?.BOOL;
+    }
     return result;
   }
   static newInstanceFromDTO(data: CreateUserDto) {
     const result = new User();
     result.name = data.name;
     result.email = data.email;
+    result.status = data.status;
     result.password = data.password;
     result.id = uuidv4();
     result.createdAt = new Date();

@@ -24,12 +24,20 @@ export class ProductsService {
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     const existingObject = await this.productRepository.findByProductId(id);
+
     if (updateProductDto.name) {
       existingObject.name = updateProductDto.name;
     }
-
+    if (updateProductDto.price) {
+      existingObject.price = updateProductDto.price;
+    }
+    if (
+      updateProductDto.status !== undefined &&
+      updateProductDto.status !== null
+    ) {
+      existingObject.status = updateProductDto.status;
+    }
     existingObject.updatedAt = new Date();
-
     return this.productRepository.upsertOne(existingObject);
   }
 

@@ -28,6 +28,7 @@ export class AuthService {
       name,
       email,
       password: hashedPassword,
+      status: true,
     });
     return {
       message: 'User created successfully',
