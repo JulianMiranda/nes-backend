@@ -7,11 +7,11 @@ import {
   AttributeValue,
   DeleteItemCommand,
 } from '@aws-sdk/client-dynamodb';
-import { User } from './entities/user.entity';
+import { Product } from './entities/product.entity';
 
 @Injectable()
-export class UsersRepository {
-  private readonly tbName = 'nes';
+export class ProductsRepository {
+  private readonly tbName = 'products';
   private readonly client: DynamoDBClient;
   constructor() {
     this.client = new DynamoDBClient({
@@ -20,56 +20,39 @@ export class UsersRepository {
   }
 
   async findAll() {
-    const result: User[] = [];
+    const result: Product[] = [];
     const command = new ScanCommand({
       TableName: this.tbName,
     });
     const response = await this.client.send(command);
+
     if (response.Items) {
       response.Items.forEach((item) => {
-        result.push(User.newInstanceFromDynamoDBObject(item));
+        result.push(Product.newInstanceFromDynamoDBObject(item));
       });
     }
     return result;
   }
-  async findByUserId(userId: string) {
+
+  async findByProductId(productId: string) {
     const command = new GetItemCommand({
       TableName: this.tbName,
       Key: {
-        id: { S: userId },
+        id: { S: productId },
       },
     });
-
     const request = await this.client.send(command);
     if (!request.Item)
-      throw new NotFoundException(`Could not find product for id: ${userId}`);
+      throw new NotFoundException(
+        `Could not find product for id: ${productId}`,
+      );
+
     if (request.Item) {
-      return User.newInstanceFromDynamoDBObject(request.Item);
-    }
-  }
-  async findOneByEmail({ email }: { email: string }) {
-    const input = {
-      ExpressionAttributeValues: {
-        ':a': {
-          S: email,
-        },
-      },
-      FilterExpression: 'email = :a',
-      TableName: this.tbName,
-    };
-    const command = new ScanCommand(input);
-
-    try {
-      const request = await this.client.send(command);
-      if (request.Count > 0) {
-        return User.newInstanceFromDynamoDBObject(request.Items[0]);
-      }
-    } catch (error) {
-      console.log('Error', error);
+      return Product.newInstanceFromDynamoDBObject(request.Item);
     }
   }
 
-  async upsertOne(data: User) {
+  async upsertOne(data: Product) {
     const itemObject: Record<string, AttributeValue> = {
       id: {
         S: data.id,
@@ -77,12 +60,10 @@ export class UsersRepository {
       name: {
         S: data.name,
       },
-      email: {
-        S: data.email,
+      price: {
+        N: data.price.toString(),
       },
-      password: {
-        S: data.password,
-      },
+
       createdAt: {
         N: String(data.createdAt.getTime()),
       },
@@ -100,11 +81,11 @@ export class UsersRepository {
     return data;
   }
 
-  async deleteByUserId(userId: string) {
+  async deleteByProductId(productId: string) {
     const command = new DeleteItemCommand({
       TableName: this.tbName,
       Key: {
-        id: { S: userId },
+        id: { S: productId },
       },
       ReturnConsumedCapacity: 'TOTAL',
       ReturnValues: 'ALL_OLD',
