@@ -10,7 +10,7 @@ import { ValidationFilter } from './filters/validation.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  /* app.setGlobalPrefix('api'); */
+  app.setGlobalPrefix('api');
 
   app.enableCors();
 
@@ -24,7 +24,6 @@ async function bootstrap() {
 			max: 100, // limit each IP to 100 requests per windowMs
 		}),
 	); */
-  console.log('Main');
 
   app.useGlobalFilters(
     new FallbackExceptionFilter(),

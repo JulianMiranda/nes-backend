@@ -24,7 +24,6 @@ export class AuthorizationGuard implements CanActivate {
   isAllowed(userRoles: string[]) {
     let allowed = false;
     userRoles.map((role) => {
-      console.log('Checking if role is allowed', role);
       if (!allowed && this.allowedRoles.includes(role)) {
         allowed = true;
       }

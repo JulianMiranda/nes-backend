@@ -8,6 +8,7 @@ import {
   DeleteItemCommand,
 } from '@aws-sdk/client-dynamodb';
 import { User } from './entities/user.entity';
+import { AWS_REG } from 'src/config/config';
 
 @Injectable()
 export class UsersRepository {
@@ -15,7 +16,7 @@ export class UsersRepository {
   private readonly client: DynamoDBClient;
   constructor() {
     this.client = new DynamoDBClient({
-      region: 'us-east-1',
+      region: AWS_REG,
     });
   }
 
