@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { ROLES } from 'src/role/roles.enum';
 
 @Injectable()
 export class AuthService {
@@ -24,13 +25,22 @@ export class AuthService {
     }
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    await this.usersService.create({
+    const userSaved = await this.usersService.create({
       name,
       email,
       password: hashedPassword,
       status: true,
+      role: ROLES.CLIENT,
     });
+    const payload = {
+      email: userSaved.email,
+      id: userSaved.id,
+      role: userSaved.role,
+    };
+    const token = await this.jwtService.signAsync(payload);
     return {
+      token: token,
+      email: userSaved.email,
       message: 'User created successfully',
     };
   }
@@ -44,7 +54,7 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid password');
     }
-    const payload = { email: user.email, id: user.id };
+    const payload = { email: user.email, id: user.id, role: user.role };
     const token = await this.jwtService.signAsync(payload);
     return {
       token: token,

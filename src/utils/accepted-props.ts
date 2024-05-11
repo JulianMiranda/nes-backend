@@ -23,6 +23,7 @@ const checkUsersProps = (
     'status',
     'createdAt',
     'updatedAt',
+    'role',
   ];
 
   checkProps(props, Object.keys(data));

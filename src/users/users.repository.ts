@@ -96,6 +96,11 @@ export class UsersRepository {
         N: String(data.updatedAt.getTime()),
       };
     }
+    if (data.role) {
+      itemObject.role = {
+        S: data.role,
+      };
+    }
     const command = new PutItemCommand({
       TableName: this.tbName,
       Item: itemObject,

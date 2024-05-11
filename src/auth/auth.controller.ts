@@ -11,7 +11,8 @@ import {
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -27,6 +28,8 @@ export class AuthController {
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
+
+  @UseGuards(AdminGuard)
   @Get('profile')
   @UseGuards(AuthGuard)
   profile(@Req() req) {

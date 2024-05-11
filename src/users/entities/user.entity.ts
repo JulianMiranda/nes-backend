@@ -5,6 +5,7 @@ export class User {
   id: string;
   name: string;
   email: string;
+  role: string;
   status: boolean;
   password: string;
   createdAt?: Date;
@@ -15,6 +16,7 @@ export class User {
     result.name = data.name.S;
     result.id = data.id.S;
     result.email = data.email.S;
+    result.role = data.role.S;
     result.password = data.password.S;
     result.createdAt = new Date(Number(data.createdAt.N));
     if (data.updatedAt) {
@@ -29,6 +31,7 @@ export class User {
     const result = new User();
     result.name = data.name;
     result.email = data.email;
+    result.role = data.role;
     result.status = data.status;
     result.password = data.password;
     result.id = uuidv4();

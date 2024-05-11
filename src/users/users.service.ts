@@ -31,6 +31,15 @@ export class UsersService {
     if (updateUserDto.name) {
       existingObject.name = updateUserDto.name;
     }
+    if (updateUserDto.email) {
+      existingObject.email = updateUserDto.email;
+    }
+    if (updateUserDto.status !== undefined && updateUserDto.status !== null) {
+      existingObject.status = updateUserDto.status;
+    }
+    if (updateUserDto.role) {
+      existingObject.role = updateUserDto.role;
+    }
 
     existingObject.updatedAt = new Date();
 
