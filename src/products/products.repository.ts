@@ -32,7 +32,7 @@ export class ProductsRepository {
         result.push(Product.newInstanceFromDynamoDBObject(item));
       });
     }
-    return result;
+    return { total: response.Count, data: result };
   }
 
   async findByProductId(productId: string) {

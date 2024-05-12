@@ -31,7 +31,7 @@ export class UsersRepository {
         result.push(User.newInstanceFromDynamoDBObject(item));
       });
     }
-    return result;
+    return { total: response.Count, data: result };
   }
   async findByUserId(userId: string) {
     const command = new GetItemCommand({
