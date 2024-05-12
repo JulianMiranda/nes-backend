@@ -179,7 +179,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/hyachipiz/production/1715400507424-2024-05-11T04:08:27.424Z/hyachipiz.zip"
+                "S3Key": "serverless/hyachipiz/production/1715487473167-2024-05-12T04:17:53.167Z/hyachipiz.zip"
               },
               "Handler": "dist/lambda.handler",
               "Runtime": "nodejs16.x",
@@ -200,14 +200,14 @@
               "ApiLogGroup"
             ]
           },
-          "ApiLambdaVersionVymH7fxP7w3U8sgjsuB6ljhStYJmcN3ExPy3miIg": {
+          "ApiLambdaVersionVw0fV0RMknq7ZRtJiIEYLQg8Ss7Nw5v5FBKyF4hLc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "yqw47dMKI0f5QuSYroQbFxcula8jR6HonXqiH12IIys="
+              "CodeSha256": "BjOTgdbghpmdAwLRjYnAn/DI1shQNAVUETFytQli3LE="
             }
           },
           "HttpApi": {
@@ -315,7 +315,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionVymH7fxP7w3U8sgjsuB6ljhStYJmcN3ExPy3miIg"
+              "Ref": "ApiLambdaVersionVw0fV0RMknq7ZRtJiIEYLQg8Ss7Nw5v5FBKyF4hLc"
             },
             "Export": {
               "Name": "sls-hyachipiz-production-ApiLambdaFunctionQualifiedArn"
@@ -465,7 +465,7 @@
         "timeout": 15,
         "runtime": "nodejs16.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionVymH7fxP7w3U8sgjsuB6ljhStYJmcN3ExPy3miIg"
+        "versionLogicalId": "ApiLambdaVersionVw0fV0RMknq7ZRtJiIEYLQg8Ss7Nw5v5FBKyF4hLc"
       }
     },
     "configValidationMode": "warn",
@@ -487,7 +487,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/hyachipiz/production/1715400507424-2024-05-11T04:08:27.424Z",
+    "artifactDirectoryName": "serverless/hyachipiz/production/1715487473167-2024-05-12T04:17:53.167Z",
     "artifact": "hyachipiz.zip"
   }
 }
